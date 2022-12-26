@@ -123,6 +123,15 @@ convertAudio = function (input,selectedFormat) {
 			.save(output)
 		return output;
 	}
+	else if (selectedFormat == 'aiff' && bvalue == 8){
+		var command = ffmpeg(input)
+			.inputFormat(extension)
+			.audioCodec('pcm_u'+bvalue)
+			.audioBitrate(bvalue)
+			.format(selectedFormat)
+			.save(output)
+		return output;
+	}
 
 }
 
