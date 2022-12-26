@@ -119,15 +119,18 @@ convertAudio = function (input,selectedFormat) {
 			.inputFormat(extension)
 			.audioCodec('pcm_u'+bvalue)
 			.audioBitrate(bvalue)
+			.audioFrequency(svalue)
 			.format(selectedFormat)
 			.save(output)
 		return output;
 	}
 	else if (selectedFormat == 'aiff' && bvalue == 8){
+		let output = folder + name + '_raw' + '.' + selectedFormat;
 		var command = ffmpeg(input)
 			.inputFormat(extension)
-			.audioCodec('pcm_u'+bvalue)
+			.audioCodec('s32le')
 			.audioBitrate(bvalue)
+			.audioFrequency(svalue)
 			.format(selectedFormat)
 			.save(output)
 		return output;
@@ -230,6 +233,13 @@ var button = document.getElementsByClassName("button");
 			else if (this.innerText === "FLAC"){
 				format = "flac";
 				console.log(format);
+			}
+			else if (this.innerText === "RAW"){
+				format = "wav";
+				console.log(format);
+				bitr.innerHTML = '<option value="16">16-bit</option><option value="24">24-bit</option><option value="32">32-bit</option><option value="8">8-bit</option>'
+				sampler.style.display = "block";
+				sampler.innerHTML = '<option value="44100">44100 kHz</option><option value="48000">48000 kHz</option><option value="48000">48000 kHz</option><option value="22050">22050 kHz</option><option value="16000">16000 kHz</option><option value="11025">11025 kHz</option><option value="8000">8000 kHz</option><option value="88200">88200 kHz</option><option value="96000">96000 kHz</option><option value="192000">192000 kHz</option>'
 			}
 			//button[0].innerText
 		}

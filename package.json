@@ -1,6 +1,6 @@
 {
   "name": "Audio Convertalizer",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Simple drag n drop audio converter tool",
   "main": "main.js",
   "scripts": {
@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "ffmpeg-static": "^5.1.0",
-    "electron-notarize": "^1.2.2",
+    "electron/notarize": "^1.2.2",
     "ffprobe-static": "^3.1.0",
     "dropzone": "^6.0.0-beta.2",
     "fluent-ffmpeg": "^2.1.2"
