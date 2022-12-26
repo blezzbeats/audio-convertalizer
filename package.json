@@ -1,0 +1,56 @@
+{
+  "name": "AudioConvertalizer",
+  "version": "1.0.0",
+  "description": "Simple drag n drop audio converter tool",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron .",
+    "pack": "build --dir",
+    "dist": "electron-builder -m --x64",
+    "package-osx": "electron-packager ./ --platform darwin --icon ./icon.icns --out ./dist --overwrite",
+    "build-osx": "electron-builder ./ --platform darwin --arch x64 --icon ./icon.icns --config notarize.js --out ./dist --overwrite",
+    "build-osx-arm": "electron-builder ./ --platform darwin --arch arm64 --icon ./icon.icns --config notarize.js --out ./dist --overwrite"
+  },
+  "keywords": [
+    "audio",
+    "converter",
+    "audio",
+    "conversion",
+    "wav",
+    "to",
+    "mp3",
+    "mp3",
+    "to",
+    "wav"
+  ],
+  "author": "Blezz Beats",
+  "license": "MIT",
+  "devDependencies": {
+    "dropzone": "^6.0.0-beta.2",
+    "electron": "^22.0.0",
+    "electron-packager": "^17.1.1",
+    "fluent-ffmpeg": "^2.1.2"
+  },
+  "dependencies": {
+    "dropzone": "^6.0.0-beta.2",
+    "electron-notarize": "^1.2.2",
+    "ffmpeg-static": "^5.1.0",
+    "ffprobe-static": "^3.1.0",
+    "fluent-ffmpeg": "^2.1.2"
+  },
+  "build": {
+    "asarUnpack": [
+      "node_modules/ffmpeg-static/bin/${os}/${arch}/ffmpeg",
+      "node_modules/ffmpeg-static/index.js",
+      "node_modules/ffmpeg-static/package.json"
+    ],
+    "appId": "com.blezzbeats.audioconvertalizer",
+    "mac": {
+      "hardenedRuntime": true,
+      "entitlements": "build/entitlements.mac.plist",
+      "gatekeeperAssess": false,
+      "category": "public.app-category.developer-tools"
+    }
+  }
+}
