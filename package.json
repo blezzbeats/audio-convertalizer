@@ -1,0 +1,46 @@
+{
+  "name": "Audio Convertalizer",
+  "version": "1.0.0",
+  "description": "Simple drag n drop audio converter tool",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron .",
+    "build-pc": "electron-packager ./ --out ./dist --overwrite",
+    "build-mac": "electron-packager ./ --platform darwin --arch x64 --icon ./icon.icns --out ./dist --overwrite",
+    "build-mac-arm": "electron-packager ./ --platform darwin --arch arm64 --icon ./icon.icns --out ./dist --overwrite"
+  },
+  "keywords": [
+    "audio",
+    "converter",
+    "audio",
+    "conversion",
+    "wav",
+    "to",
+    "mp3",
+    "mp3",
+    "to",
+    "wav"
+  ],
+  "author": "Blezz Beats",
+  "license": "MIT",
+  "devDependencies": {
+    "dropzone": "^6.0.0-beta.2",
+    "electron": "^22.0.0",
+    "electron-packager": "^17.1.1",
+    "fluent-ffmpeg": "^2.1.2"
+  },
+  "dependencies": {
+    "ffmpeg-static": "^5.1.0",
+    "ffprobe-static": "^3.1.0",
+    "dropzone": "^6.0.0-beta.2",
+    "fluent-ffmpeg": "^2.1.2"
+  },
+  "build": {
+    "asarUnpack": [
+      "node_modules/ffmpeg-static/bin/${os}/${arch}/ffmpeg",
+      "node_modules/ffmpeg-static/index.js",
+      "node_modules/ffmpeg-static/package.json"
+    ]
+  }
+}
