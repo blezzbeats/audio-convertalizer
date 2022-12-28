@@ -1,86 +1,3 @@
-convertMp3ToWav = function (input) {
-	let segments = input.split('/');
-
-	let filename = segments[segments.length - 1];
-	let extension = filename.split('.')[1];
-
-	let name = filename.split('.')[0];
-
-	let folder = input.replace(filename, '');
-	let output = folder + name + '.wav';
-	console.log("\Converting file %s", output)
-
-	var ffmpeg = require('fluent-ffmpeg');
-	var command = ffmpeg(input)
-		.inputFormat('mp3')
-		.audioCodec('pcm_s16le')
-		.format('wav')
-		.save(output)
-
-	return output;
-}
-
-convertWavToMp3 = function (input) {
-	let segments = input.split('/');
-  console.log(segments);
-
-	let filename = segments[segments.length - 1];
-  console.log(filename);
-	let extension = filename.split('.')[1];
-  console.log(extension);
-	let name = filename.split('.')[0];
-  console.log(name);
-	let folder = input.replace(filename, '');
-  console.log("Folder:");
-  console.log(folder);
-	let output = folder + name + '.mp3';
-	console.log("\Converting file %s", output)
-
-	//var ffmpeg = require('ffmpeg-static');;
-	var command = ffmpeg(input)
-		.inputFormat('wav')
-		.audioCodec('libmp3lame')
-		.format('mp3')
-		.save(output)
-
-	return output;
-}
-
-/*
-convertAudio = function (input,selectedFormat) {
-	let segments = input.split('/');
-
-	let filename = segments[segments.length - 1];
-	let extension = filename.split('.')[1];
-	let name = filename.split('.')[0];
-	let folder = input.replace(filename, '');
-  if(extension == 'wav')
-    {
-      let output = folder + name + '.mp3';
-      console.log("\Converting file %s", output)
-
-      var command = ffmpeg(input)
-        .inputFormat('wav')
-        //.audioCodec('libmp3lame')
-        .format('mp3')
-        .save(output)
-      return output;
-    }
-  else if(extension == 'mp3')
-    {
-      let output = folder + name + '.wav';
-    	console.log("\Converting file %s", output)
-
-    	var command = ffmpeg(input)
-    		.inputFormat('mp3')
-    		//.audioCodec('pcm_s16le')
-    		.format('wav')
-    		.save(output)
-      return output;
-    }
-}
-*/
-
 convertAudio = function (input,selectedFormat) {
 	let segments = input.split('/');
 	let filename = segments[segments.length - 1];
@@ -91,7 +8,7 @@ convertAudio = function (input,selectedFormat) {
 	console.log(bvalue);
 	console.log(svalue);
 
-  let output = folder + name + '.' + selectedFormat;
+  let output = folder + name + '_conv' + '.' + selectedFormat;
   console.log("\Converting file %s", output)
 
 	if (selectedFormat == 'mp3'){
@@ -124,11 +41,66 @@ convertAudio = function (input,selectedFormat) {
 			.save(output)
 		return output;
 	}
-	else if (selectedFormat == 'aiff' && bvalue == 8){
-		let output = folder + name + '_raw' + '.' + selectedFormat;
+	else if (selectedFormat == 'raw'){
+		let output = folder + name + '_conv' + selectedFormat;
 		var command = ffmpeg(input)
 			.inputFormat(extension)
-			.audioCodec('s32le')
+			.audioCodec('pcm_s16le')
+			.audioBitrate(bvalue)
+			.audioFrequency(svalue)
+			.format(selectedFormat)
+			.save(output)
+		return output;
+	}
+	else if (selectedFormat == 'aiff'){
+		let output = folder + name + '_conv' + '.' + selectedFormat;
+		var command = ffmpeg(input)
+			.inputFormat(extension)
+			.audioCodec('pcm_s'+bvalue+'be')
+			.audioBitrate(bvalue)
+			.audioFrequency(svalue)
+			.format(selectedFormat)
+			.save(output)
+		return output;
+	}
+	else if (selectedFormat == 'ogg'){
+		let output = folder + name + '_conv' + '.' + selectedFormat;
+		var command = ffmpeg(input)
+			.inputFormat(extension)
+			.audioCodec('libvorbis')
+			.audioBitrate(bvalue)
+			.audioFrequency(svalue)
+			.format(selectedFormat)
+			.save(output)
+		return output;
+	}
+	else if (selectedFormat == 'flac'){
+		let output = folder + name + '_conv' + '.' + selectedFormat;
+		var command = ffmpeg(input)
+			.inputFormat(extension)
+			.audioCodec('libflac')
+			.audioBitrate(bvalue)
+			.audioFrequency(svalue)
+			.format(selectedFormat)
+			.save(output)
+		return output;
+	}
+	else if (selectedFormat == 'aac'){
+		let output = folder + name + '_conv' + '.' + selectedFormat;
+		var command = ffmpeg(input)
+			.inputFormat(extension)
+			.audioCodec('libfaac')
+			.audioBitrate(bvalue)
+			.audioFrequency(svalue)
+			.format(selectedFormat)
+			.save(output)
+		return output;
+	}
+	else if (selectedFormat == 'ac3'){
+		let output = folder + name + '_conv' + '.' + 'mp3';
+		var command = ffmpeg(input)
+			.inputFormat(extension)
+			.audioCodec('ac3')
 			.audioBitrate(bvalue)
 			.audioFrequency(svalue)
 			.format(selectedFormat)
@@ -211,36 +183,72 @@ var button = document.getElementsByClassName("button");
 			console.log(button[0]);
 			if (this.innerText === "WAV"){
 				format = "wav";
+				bvalue = 16;
+				svalue = 44100;
 				console.log(format);
 				bitr.innerHTML = '<option value="16">16-bit</option><option value="24">24-bit</option><option value="32">32-bit</option><option value="8">8-bit</option>'
 				sampler.style.display = "block";
-				sampler.innerHTML = '<option value="44100">44100 kHz</option><option value="48000">48000 kHz</option><option value="48000">48000 kHz</option><option value="22050">22050 kHz</option><option value="16000">16000 kHz</option><option value="11025">11025 kHz</option><option value="8000">8000 kHz</option><option value="88200">88200 kHz</option><option value="96000">96000 kHz</option><option value="192000">192000 kHz</option>'
+				sampler.innerHTML = '<option value="44100">44100 kHz</option><option value="48000">48000 kHz</option><option value="22050">22050 kHz</option><option value="16000">16000 kHz</option><option value="11025">11025 kHz</option><option value="8000">8000 kHz</option><option value="88200">88200 kHz</option><option value="96000">96000 kHz</option><option value="192000">192000 kHz</option>'
 			}
 			else if (this.innerText === "MP3"){
 				format = "mp3";
+				bvalue = 96;
 				console.log(format);
 				bitr.innerHTML = '<option value="96k">96 kbps</option><option value="128k">128 kbps</option><option value="256k">256 kbps</option><option value="320k">320 kbps</option>'
 				sampler.style.display = "none";
 			}
 			else if (this.innerText === "AIFF"){
 				format = "aiff";
+				bvalue = 16;
+				svalue = 44100;
 				console.log(format);
+				bitr.innerHTML = '<option value="16">16-bit</option><option value="24">24-bit</option><option value="32">32-bit</option>'
+				sampler.style.display = "block";
+				sampler.innerHTML = '<option value="44100">44100 kHz</option><option value="48000">48000 kHz</option><option value="22050">22050 kHz</option><option value="16000">16000 kHz</option><option value="11025">11025 kHz</option><option value="8000">8000 kHz</option><option value="88200">88200 kHz</option><option value="96000">96000 kHz</option><option value="192000">192000 kHz</option>'
 			}
 			else if (this.innerText === "OGG"){
 				format = "ogg";
+				bvalue = 96;
 				console.log(format);
+				bitr.innerHTML = '<option value="96k">96 kbps</option><option value="128k">128 kbps</option><option value="256k">256 kbps</option><option value="320k">320 kbps</option>'
+				sampler.style.display = "none";
 			}
 			else if (this.innerText === "FLAC"){
 				format = "flac";
+				bvalue = 16;
+				svalue = 44100;
 				console.log(format);
+				sampler.style.display = "block";
+				bitr.innerHTML = '<option value="16">16-bit</option><option value="24">24-bit</option><option value="32">32-bit</option><option value="8">8-bit</option>'
+				sampler.innerHTML = '<option value="44100">44100 kHz</option><option value="48000">48000 kHz</option><option value="22050">22050 kHz</option><option value="16000">16000 kHz</option><option value="11025">11025 kHz</option><option value="8000">8000 kHz</option><option value="88200">88200 kHz</option><option value="96000">96000 kHz</option><option value="192000">192000 kHz</option>'
+
 			}
 			else if (this.innerText === "RAW"){
-				format = "wav";
+				format = "raw";
+				bvalue = 16;
+				svalue = 44100;
 				console.log(format);
 				bitr.innerHTML = '<option value="16">16-bit</option><option value="24">24-bit</option><option value="32">32-bit</option><option value="8">8-bit</option>'
 				sampler.style.display = "block";
-				sampler.innerHTML = '<option value="44100">44100 kHz</option><option value="48000">48000 kHz</option><option value="48000">48000 kHz</option><option value="22050">22050 kHz</option><option value="16000">16000 kHz</option><option value="11025">11025 kHz</option><option value="8000">8000 kHz</option><option value="88200">88200 kHz</option><option value="96000">96000 kHz</option><option value="192000">192000 kHz</option>'
+				sampler.innerHTML = '<option value="44100">44100 kHz</option><option value="48000">48000 kHz</option><option value="22050">22050 kHz</option><option value="16000">16000 kHz</option><option value="11025">11025 kHz</option><option value="8000">8000 kHz</option><option value="88200">88200 kHz</option><option value="96000">96000 kHz</option><option value="192000">192000 kHz</option>'
 			}
+			else if (this.innerText === "AAC"){
+				format = "aac";
+				bvalue = 16;
+				svalue = 44100;
+				console.log(format);
+				bitr.innerHTML = '<option value="16">16-bit</option><option value="24">24-bit</option><option value="32">32-bit</option><option value="8">8-bit</option>'
+				sampler.style.display = "block";
+				sampler.innerHTML = '<option value="44100">44100 kHz</option><option value="48000">48000 kHz</option><option value="22050">22050 kHz</option><option value="16000">16000 kHz</option><option value="11025">11025 kHz</option><option value="8000">8000 kHz</option><option value="88200">88200 kHz</option><option value="96000">96000 kHz</option><option value="192000">192000 kHz</option>'
+			}
+			else if (this.innerText === "AC3"){
+				format = "ac3";
+				bvalue = 96;
+				console.log(format);
+				bitr.innerHTML = '<option value="96k">96 kbps</option><option value="128k">128 kbps</option><option value="256k">256 kbps</option><option value="320k">320 kbps</option>'
+				sampler.style.display = "none";
+			}
+
 			//button[0].innerText
 		}
 
