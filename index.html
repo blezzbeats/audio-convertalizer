@@ -2,55 +2,58 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Audio Convertalizer</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Audio Convertalizer</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <!--Display text and a tv image-->
-    <form action="">
+  <!--Display text and a tv image-->
+  <form action="">
+    <div class="drop-zone-wrapper">
       <div class="drop-zone">
-            <!-- span class="drop-zone__prompt">ALL FILEZ ON ME</span -->
-            <input type="file" name="myFile" class="drop-zone__input" multiple>
+        <!-- span class="drop-zone__prompt">ALL FILEZ ON ME</span -->
+        <input type="file" name="myFile" class="drop-zone__input" multiple>
       </div>
-      <label id="combo1-label" class="combo-label">Read-only Select</label>
-    </form>
-    <form action="">
-      <div class="menu">
-        <a class="button selected">WAV</a>
-        <a class="button">MP3</a>
-        <a class="button">AIFF</a>
-        <a class="button">OGG</a>
-        <!--a class="button">FLAC</a-->
-        <!--a class="button">RAW</a-->
-        <!--a class="button">AAC</a-->
-        <!--a class="button">AC3</a-->
-      </div>
-    </form>
-    <div class = "dropdowns">
-      <select name="bitrates" id="bitrates">
-        <option value="16">16-bit</option>
-        <option value="24">24-bit</option>
-        <option value="32">32-bit</option>
-        <option value="8">8-bit</option>
-      </select>
-      <select name="samplerates" id="samplerates">
-        <option value="44100">44100 kHz</option>
-        <option value="48000">48000 kHz</option>
-        <option value="48000">48000 kHz</option>
-        <option value="22050">22050 kHz</option>
-        <option value="16000">16000 kHz</option>
-        <option value="11025">11025 kHz</option>
-        <option value="8000">8000 kHz</option>
-        <option value="88200">88200 kHz</option>
-        <option value="96000">96000 kHz</option>
-        <option value="192000">192000 kHz</option>
-      </select>
     </div>
-    <script src="./main.js"></script>
-    <script src="./conv.js"></script>
+    <!-- <label id="combo1-label" class="combo-label">Read-only Select</label> -->
+  </form>
+  <form action="">
+    <div class="menu">
+      <a class="button selected">WAV</a>
+      <a class="button">MP3</a>
+      <a class="button">AIFF</a>
+      <a class="button">OGG</a>
+      <!--a class="button">FLAC</a-->
+      <!--a class="button">RAW</a-->
+      <!--a class="button">AAC</a-->
+      <!--a class="button">AC3</a-->
+    </div>
+  </form>
+  <div class="dropdowns">
+    <select name="bitrates" id="bitrates">
+      <option value="16">16-bit</option>
+      <option value="24">24-bit</option>
+      <option value="32">32-bit</option>
+      <option value="8">8-bit</option>
+    </select>
+    <select name="samplerates" id="samplerates">
+      <option value="44100">44100 kHz</option>
+      <option value="48000">48000 kHz</option>
+      <option value="48000">48000 kHz</option>
+      <option value="22050">22050 kHz</option>
+      <option value="16000">16000 kHz</option>
+      <option value="11025">11025 kHz</option>
+      <option value="8000">8000 kHz</option>
+      <option value="88200">88200 kHz</option>
+      <option value="96000">96000 kHz</option>
+      <option value="192000">192000 kHz</option>
+    </select>
+  </div>
+  <script src="./main.js"></script>
+  <script src="./conv.js"></script>
 </body>
+
 </html>
