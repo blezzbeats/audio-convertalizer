@@ -56,7 +56,7 @@ img {
   color: #cccccc;
   border: 4px dashed #51837c;
   border-radius: 10px;
-  background-image: url("./ac.png");
+  background-image: url("./assets/ac.png");
 }
 
 .drop-zone--over {
