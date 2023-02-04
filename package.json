@@ -8,10 +8,7 @@
     "start": "electron .",
     "package-pc": "electron-packager ./ --icon ./assets/ac.ico --out ./dist --overwrite",
     "package-mac": "electron-packager ./ --platform darwin --arch x64 --icon ./assets/icon.icns --out ./dist --overwrite",
-    "package-mac-arm": "electron-packager ./ --platform darwin --arch arm64 --icon ./assets/icon.icns --out ./dist --overwrite",
-    "build-osx": "electron-builder ./ --platform darwin --arch x64 --icon ./assets/icon.icns --config notarize.js --out ./dist --overwrite",
-    "build-osx-arm": "electron-builder ./ --platform darwin --arch arm64 --icon ./assets/icon.icns --config notarize.js --out ./dist --overwrite",
-    "build-pc": "electron-builder ./ --icon ./assets/ac.ico --out ./dist --overwrite"
+    "package-mac-arm": "electron-packager ./ --platform darwin --arch arm64 --icon ./assets/icon.icns --out ./dist --overwrite"
   },
   "keywords": [
     "audio",
@@ -30,7 +27,6 @@
   "devDependencies": {
     "electron": "^22.1.0",
     "electron-packager": "^17.1.1",
-    "electron-builder": "^23.6.0",
     "electron-notarize": "^1.2.2"
   },
   "dependencies": {
